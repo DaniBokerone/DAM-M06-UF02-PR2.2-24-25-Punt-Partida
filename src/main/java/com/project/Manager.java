@@ -140,7 +140,7 @@ public class Manager {
                 for (Ciutada ciutada : ciutadans) {
                     Ciutada managedItem = session.get(Ciutada.class, ciutada.getCiutadaId());
                     if (managedItem != null) {
-                        obj.addCiutada(ciutada);
+                        obj.addCiutada(managedItem);
                     }
                 }
             }

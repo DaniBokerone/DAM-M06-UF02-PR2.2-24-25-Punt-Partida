@@ -1,24 +1,9 @@
 package com.project;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "ciutadans")
 public class Ciutada {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="ciutadaId", unique=true, nullable=false)
-    private long id;
-    @ManyToOne
-    @JoinColumn(name="ciutatId")
+
+    private long ciutadaId;
     private Ciutat ciutat;
     private String nom;
     private String cognom;
@@ -34,7 +19,7 @@ public class Ciutada {
     }
 
     public long getCiutadaId() {
-        return id;
+        return ciutadaId;
     }
 
     public Ciutat getCiutat() {
@@ -53,8 +38,8 @@ public class Ciutada {
         return edat;
     }
 
-    public void setCiutadaId(long id) {
-        this.id = id;
+    public void setCiutadaId(long ciutadaId) {
+        this.ciutadaId = ciutadaId;
     }
 
     public void setCiutat(Ciutat ciutat) {
@@ -84,12 +69,12 @@ public class Ciutada {
         if (o == null || getClass() != o.getClass()) return false;
         
         Ciutada ciutada = (Ciutada) o;
-        return id == ciutada.id;
+        return ciutadaId == ciutada.ciutadaId;
     }
     
     @Override
     public int hashCode() {
-        return Long.hashCode(id);
+        return Long.hashCode(ciutadaId);
     }
     
 }

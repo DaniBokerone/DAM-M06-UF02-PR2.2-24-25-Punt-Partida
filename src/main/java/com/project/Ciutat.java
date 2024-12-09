@@ -3,37 +3,23 @@ package com.project;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "ciutats")
 public class Ciutat {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="ciutatId", unique=true, nullable=false)
+   
     private long ciutatId;
     private String nom;
     private String pais;
-    private int codiPostal;
+    private int poblacio;
 
-    @OneToMany(mappedBy = "ciutat", 
-    fetch = FetchType.EAGER)
     private Set<Ciutada> ciutadans = new HashSet<>();
 
     public Ciutat() {}
 
-    public Ciutat(String nom, String pais, int codiPostal) {
+    public Ciutat(String nom, String pais, int poblacio) {
         this.nom = nom;
         this.pais = pais;
-        this.codiPostal = codiPostal;
+        this.poblacio = poblacio;
     }
 
     public long getCiutatId() {
@@ -49,7 +35,7 @@ public class Ciutat {
     }
 
     public int getPoblacio() {
-        return codiPostal;
+        return poblacio;
     }
 
     public void setCiutatId(long ciutatId) {
@@ -64,8 +50,8 @@ public class Ciutat {
         this.pais = pais;
     }
 
-    public void setPoblacio(int codiPostal) {
-        this.codiPostal = codiPostal;
+    public void setPoblacio(int poblacio) {
+        this.poblacio = poblacio;
     }
 
     public Set<Ciutada> getCiutadans() {

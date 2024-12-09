@@ -1,12 +1,9 @@
 package com.project;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
 import org.hibernate.HibernateException;
@@ -26,9 +23,9 @@ public class Manager {
         try {
             Configuration configuration = new Configuration();
             
-            // Important: Afegim les classes anotades
-            configuration.addAnnotatedClass(Ciutat.class);
-            configuration.addAnnotatedClass(Ciutada.class);
+            // Add the mapping resources instead of annotated classes
+            configuration.addResource("Ciutada.hbm.xml");
+            configuration.addResource("Ciutat.hbm.xml");
 
             StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
@@ -37,37 +34,6 @@ public class Manager {
             factory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) { 
             System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex); 
-        }
-    }
-
-    public static void createSessionFactory(String propertiesFileName) {
-        try {
-            Configuration configuration = new Configuration();
-            
-            // Important: Afegim les classes anotades
-            configuration.addAnnotatedClass(Ciutat.class);
-            configuration.addAnnotatedClass(Ciutada.class);
-
-            // Carreguem el fitxer de propietats
-            Properties properties = new Properties();
-            try (InputStream input = Manager.class.getClassLoader().getResourceAsStream(propertiesFileName)) {
-                if (input == null) {
-                    throw new IOException("No s'ha pogut trobar " + propertiesFileName + " al classpath.");
-                }
-                properties.load(input);
-            }
-
-            // Apliquem les propietats a la configuració
-            configuration.addProperties(properties);
-
-            StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties())
-                .build();
-                
-            factory = configuration.buildSessionFactory(serviceRegistry);
-        } catch (Throwable ex) { 
-            System.err.println("Error en crear l'objecte sessionFactory: " + ex);
             throw new ExceptionInInitializerError(ex); 
         }
     }
@@ -140,7 +106,7 @@ public class Manager {
                 for (Ciutada ciutada : ciutadans) {
                     Ciutada managedItem = session.get(Ciutada.class, ciutada.getCiutadaId());
                     if (managedItem != null) {
-                        obj.addCiutada(ciutada);
+                        obj.addCiutada(managedItem);
                     }
                 }
             }
